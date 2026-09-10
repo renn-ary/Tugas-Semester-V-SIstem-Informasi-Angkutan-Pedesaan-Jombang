@@ -18,7 +18,7 @@ Teknik Informatika
 ## Anggota Kelompok
 
 1. Rendi Asyari - 2495114055
-2. Noval Fajar Romadhoni - 2495114041
+2. Noval Fajar - 
 
 ## Teknologi
 
