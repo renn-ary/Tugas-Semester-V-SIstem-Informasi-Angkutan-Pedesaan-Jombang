@@ -241,3 +241,122 @@ Keakuratan informasi yang ditampilkan bergantung pada data yang diberikan, diper
 2. Sistem melakukan validasi.
 3. Sistem menampilkan pesan bahwa lokasi asal dan tujuan harus diisi.
 4. Pengguna melengkapi data pencarian.
+
+### 7.3 Use Case Diagram
+
+```mermaid
+flowchart LR
+
+    %% =========================
+    %% AKTOR
+    %% =========================
+
+    M["Masyarakat / Penumpang"]
+    O["Pengemudi / Operator"]
+    A["Admin Sistem"]
+    D["Dinas Perhubungan / Pihak Berwenang"]
+
+    %% =========================
+    %% SISTEM
+    %% =========================
+
+    subgraph SISTEM["Sistem Informasi Angkutan Pedesaan Jombang"]
+
+        UC1(("Mencari Angkutan"))
+        UC2(("Melihat Detail Rute"))
+        UC3(("Melihat Jadwal"))
+        UC4(("Melihat Tarif"))
+        UC5(("Melihat Status Operasional"))
+
+        UC6(("Mengelola Data Angkutan"))
+        UC7(("Mengelola Rute"))
+        UC8(("Mengelola Jadwal dan Tarif"))
+
+        UC9(("Memperbarui Informasi Operasional"))
+
+        UC10(("Memverifikasi Data"))
+    end
+
+    %% =========================
+    %% RELASI MASYARAKAT
+    %% =========================
+
+    M --> UC1
+    M --> UC2
+    M --> UC3
+    M --> UC4
+    M --> UC5
+
+    %% =========================
+    %% RELASI OPERATOR
+    %% =========================
+
+    O --> UC9
+
+    %% =========================
+    %% RELASI ADMIN
+    %% =========================
+
+    A --> UC6
+    A --> UC7
+    A --> UC8
+
+    %% =========================
+    %% RELASI DINAS
+    %% =========================
+
+    D --> UC10
+```
+### 7.4 Activity Diagram - Mencari Angkutan
+
+```mermaid
+flowchart TD
+
+    A([Mulai])
+
+    B["Pengguna membuka halaman<br/>Sistem Informasi Angkutan"]
+
+    C["Pengguna memilih<br/>fitur Cari Angkutan"]
+
+    D["Sistem menampilkan<br/>form pencarian"]
+
+    E["Pengguna memasukkan<br/>lokasi asal dan tujuan"]
+
+    F{"Data pencarian<br/>lengkap?"}
+
+    G["Sistem menampilkan<br/>pesan validasi"]
+
+    H["Sistem mencari<br/>rute yang sesuai"]
+
+    I{"Angkutan<br/>ditemukan?"}
+
+    J["Sistem menampilkan pesan<br/>angkutan tidak ditemukan"]
+
+    K["Sistem menampilkan<br/>daftar angkutan"]
+
+    L["Pengguna memilih<br/>salah satu angkutan"]
+
+    M["Sistem menampilkan detail:<br/>rute, titik pemberhentian,<br/>jadwal, dan tarif"]
+
+    N([Selesai])
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+
+    F -- "Tidak" --> G
+    G --> E
+
+    F -- "Ya" --> H
+    H --> I
+
+    I -- "Tidak" --> J
+    J --> E
+
+    I -- "Ya" --> K
+    K --> L
+    L --> M
+    M --> N
+```
