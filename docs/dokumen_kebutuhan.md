@@ -360,3 +360,47 @@ flowchart TD
     L --> M
     M --> N
 ```
+### 7.5 Sequence Diagram - Mencari Angkutan
+```mermaid
+sequenceDiagram
+
+    actor User as Masyarakat / Penumpang
+    participant Web as Sistem Informasi
+    participant Controller as Sistem Laravel
+    participant DB as Database
+
+    User->>Web: Membuka halaman sistem
+    Web-->>User: Menampilkan halaman pencarian
+
+    User->>Web: Memasukkan asal dan tujuan
+    User->>Web: Menekan tombol Cari
+
+    Web->>Controller: Mengirim data pencarian
+    Controller->>Controller: Validasi data
+
+    alt Data tidak lengkap
+        Controller-->>Web: Mengirim pesan validasi
+        Web-->>User: Menampilkan pesan kesalahan
+
+    else Data lengkap
+        Controller->>DB: Mencari rute berdasarkan asal dan tujuan
+        DB-->>Controller: Mengirim data angkutan
+
+        alt Angkutan ditemukan
+            Controller-->>Web: Mengirim hasil pencarian
+            Web-->>User: Menampilkan daftar angkutan
+
+            User->>Web: Memilih angkutan
+            Web->>Controller: Meminta detail angkutan
+            Controller->>DB: Mengambil detail angkutan
+            DB-->>Controller: Mengirim detail angkutan
+            Controller-->>Web: Mengirim detail angkutan
+
+            Web-->>User: Menampilkan rute, jadwal, tarif dan status
+
+        else Angkutan tidak ditemukan
+            Controller-->>Web: Hasil pencarian kosong
+            Web-->>User: Menampilkan pesan tidak ditemukan
+        end
+    end
+```
