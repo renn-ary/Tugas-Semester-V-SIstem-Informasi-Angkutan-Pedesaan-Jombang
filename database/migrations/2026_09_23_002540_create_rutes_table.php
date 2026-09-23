@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('rutes', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('angkutan_id')
+                ->constrained('angkutans')
+                ->cascadeOnDelete();
+
+            $table->string('asal');
+            $table->string('tujuan');
+            $table->text('jalur')->nullable();
+
             $table->timestamps();
         });
     }
