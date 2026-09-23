@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('titik_pemberhentians', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('rute_id')
+                ->constrained('rutes')
+                ->cascadeOnDelete();
+
+            $table->string('nama');
+            $table->unsignedInteger('urutan');
+
             $table->timestamps();
         });
     }
