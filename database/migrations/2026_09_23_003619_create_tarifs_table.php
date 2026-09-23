@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('tarifs', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('angkutan_id')
+                ->constrained('angkutans')
+                ->cascadeOnDelete();
+
+            $table->decimal('nominal', 12, 2);
+            $table->string('keterangan')->nullable();
+
             $table->timestamps();
         });
     }
