@@ -13,6 +13,19 @@ return new class extends Migration
     {
         Schema::create('verifikasis', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('angkutan_id')
+                ->constrained('angkutans')
+                ->cascadeOnDelete();
+
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->cascadeOnDelete();
+
+            $table->string('status');
+            $table->text('catatan')->nullable();
+            $table->timestamp('verified_at')->nullable();
+
             $table->timestamps();
         });
     }
