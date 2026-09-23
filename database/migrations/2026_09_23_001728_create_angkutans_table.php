@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('angkutans', function (Blueprint $table) {
             $table->id();
+            $table->string('nama');
+            $table->string('kode')->unique();
+            $table->string('jenis')->nullable();
+            $table->enum('status_operasional', ['aktif', 'tidak_aktif'])
+                ->default('aktif');
             $table->timestamps();
         });
     }
